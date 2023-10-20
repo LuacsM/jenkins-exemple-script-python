@@ -16,17 +16,8 @@ pipeline {
         stage('Testes') {
             steps {
                 // Execute os testes
-                bat 'python -m unittest -o test_results.xml test_calculadora_estatistica.py'
+                bat 'python -m unittest -v test_calculadora_estatistica.py'
             }
-        }
-        stage('Publish Test Results') {
-          steps {
-              // Use o plugin JUnit ou xUnit para publicar os resultados dos testes
-              // Se estiver usando o JUnit Plugin:
-              junit 'test_results.xml'
-              // Se estiver usando o xUnit Plugin:
-              xunit(tools: [JUnit(deleteOutputFiles: true, failIfNotNew: false, pattern: 'test_results.xml')])
-          }
         }
     }
 }
