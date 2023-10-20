@@ -1,5 +1,9 @@
 pipeline {
     agent any
+    tools {
+        // Especifique aqui a versão do Python desejada
+        nodejs 'NomeDaSuaFerramentaNodeJS'
+    }
     stages {
         stage('Checkout') {
             steps {
@@ -15,8 +19,30 @@ pipeline {
         }
         stage('Testes') {
             steps {
-                // Execute os testes
+                // Execute os testes e gere relatório em formato JUnit
                 bat 'python -m unittest -v test_calculadora_estatistica.py'
+                step([$class: 'JUnitPublisher', testResults: '**/TEST-*.xml'])
+            }
+        }
+        stage('Cobertura de Código') {
+            steps {
+                // Execute os testes com cobertura de código e gere relatório HTML
+                bat 'coverage run -m unittest discover -v -s . -p test_*.py'
+                bat 'coverage xml'
+                bat 'coverage html'
+            }
+            post {
+                always {
+                    // Arquivos de cobertura são gerados nos diretórios "coverage.xml" e "htmlcov"
+                    publishHTML(target: [
+                        allowMissing: false,
+                        alwaysLinkToLastBuild: false,
+                        keepAll: true,
+                        reportDir: 'htmlcov',
+                        reportFiles: 'index.html',
+                        reportName: 'Cobertura de Código'
+                    ])
+                }
             }
         }
     }
