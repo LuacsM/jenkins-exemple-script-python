@@ -6,9 +6,9 @@ pipeline {
         bat 'python --version'
       }
     }
-    stage('hello') {
+    stage('teste') {
       steps {
-        bat 'python hello.py'
+        bat 'python test_calculadora_estatistica.py'
       }
     }
   }
