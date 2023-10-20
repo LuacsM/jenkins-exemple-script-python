@@ -1,10 +1,6 @@
 pipeline {
     agent any
-    tools {
-        // Especifique aqui a versão do Python desejada
-        nodejs 'NomeDaSuaFerramentaNodeJS'
-    }
-    stages {
+      stages {
         stage('Checkout') {
             steps {
                 // Verifique o código do repositório
