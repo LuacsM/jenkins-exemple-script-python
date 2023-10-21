@@ -19,7 +19,7 @@ pipeline {
                 bat 'coverage run -m unittest -v test_calculadora_estatistica'
             }
         }
-        stage('Relatório de Cobertura HTML') {
+        stage('Relatorio de Cobertura HTML') {
             steps {
                 // Gere o relatório HTML de cobertura
                 bat 'coverage html'
