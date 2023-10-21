@@ -15,22 +15,19 @@ pipeline {
         }
         stage('Testes') {
             steps {
-                // Execute os testes com cobertura
-                bat 'coverage run -m unittest -v test_calculadora_estatistica'
+                // Execute os testes
+                bat 'python -m unittest -v test_calculadora_estatistica.py'
             }
         }
-        stage('Relatorio de Cobertura HTML') {
-            steps {
-                // Gere o relatório HTML de cobertura
-                bat 'coverage html'
-            }
-            post {
-                always {
-                    // Arquive o relatório HTML gerado
-                    archiveArtifacts artifacts: 'htmlcov/**', allowEmptyArchive: true
+    }
+    post {
+        unstable {
+            // Marque o build como instável se os testes falharem
+            always {
+                script {
+                    currentBuild.resultIsBetterOrEqualTo("SUCCESS")
                 }
             }
         }
     }
 }
-
