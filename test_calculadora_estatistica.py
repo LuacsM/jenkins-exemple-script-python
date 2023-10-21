@@ -14,7 +14,7 @@ class TestCalculadoraEstatistica(unittest.TestCase):
         self.assertEqual(resultado, 30.0, "A média dos números positivos deve ser 30.")
 
     def test_media_mistura_numeros(self):
-        numeros = [-5, 10, 0, 5, -10]
+        numeros = [-5, 10, 0, 25, -10]
         resultado = CalculadoraEstatistica.calcular_media(numeros)
         self.assertEqual(resultado, 4.0, "A média de números mistos deve ser 4.")
 
