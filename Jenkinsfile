@@ -15,15 +15,19 @@ pipeline {
         }
         stage('Testes') {
             steps {
+                // Adicione um passo para listar o conteúdo do diretório de relatórios
+                bat 'dir /s'
+                
                 // Execute os testes e gere relatório em formato JUnit
                 bat 'python -m unittest -v test_calculadora_estatistica.py'
             }
             post {
                 always {
-                    junit '**/TEST-*.xml' // Configure o plugin JUnit desta forma
+                    junit '**/TEST-*.xml'
                 }
             }
         }
+
 
         stage('Cobertura de Código') {
             steps {
