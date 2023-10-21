@@ -17,9 +17,14 @@ pipeline {
             steps {
                 // Execute os testes e gere relatório em formato JUnit
                 bat 'python -m unittest -v test_calculadora_estatistica.py'
-                step([$class: 'JUnitPublisher', testResults: '**/TEST-*.xml'])
+            }
+            post {
+                always {
+                    junit '**/TEST-*.xml' // Configure o plugin JUnit desta forma
+                }
             }
         }
+
         stage('Cobertura de Código') {
             steps {
                 // Execute os testes com cobertura de código e gere relatório HTML
