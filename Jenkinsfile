@@ -5,6 +5,7 @@ pipeline {
             steps {
                 // Verifique o código do repositório
                 checkout scm
+                bat 'pip install xmlrunner'
             }
         }
         stage('Main') {
